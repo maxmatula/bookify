@@ -7,6 +7,7 @@ namespace Bookify.API.Models
         public Booking()
         {
             BookingDate = DateTime.Now;
+            AdvancePaid = false;
             IsPaid = false;
         }
 
@@ -17,6 +18,7 @@ namespace Bookify.API.Models
         public int Adults { get; set; }
         public int Kids { get; set; }
         public int Animals { get; set; }
+        public bool AdvancePaid { get; set; }
         public bool IsPaid { get; set; }
 
         public int HouseId { get; set; }
