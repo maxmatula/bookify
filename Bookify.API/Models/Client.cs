@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Bookify.API.Models
 {
     public class Client
@@ -7,5 +9,7 @@ namespace Bookify.API.Models
         public string Lastname { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
+
+        public ICollection<Booking> Bookings { get; set; }
     }
 }

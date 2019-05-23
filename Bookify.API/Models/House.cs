@@ -15,5 +15,6 @@ namespace Bookify.API.Models
         public int AddressId { get; set; }
         public Address Address { get; set; }
         public ICollection<Equipment> Equipment { get; set; }
+        public ICollection<Booking> Bookings { get; set; }
     }
 }
