@@ -1,4 +1,6 @@
 using AutoMapper;
+using Bookify.API.DTO.Equipment.Return;
+using Bookify.API.Models;
 
 namespace Bookify.API.Helpers
 {
@@ -6,7 +8,10 @@ namespace Bookify.API.Helpers
     {
         public AutoMapperProfiles()
         {
-            //CreateMap<User, UserForListDto>();
+            CreateMap<Equipment, EquipmentDto>();
+            CreateMap<EquipmentDto, Equipment>();
+            CreateMap<EquipmentForCreateDto, Equipment>();
+            CreateMap<EquipmentForEditDto, Equipment>();
         }
     }
 }

@@ -12503,11 +12503,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/em/Desktop/Z.Hajder/Bookify/Bookify.API/Bookify.API.csproj",
+      "projectUniqueName": "/Users/em/Desktop/Studia/Z.Hajder/Bookify/Bookify.API/Bookify.API.csproj",
       "projectName": "Bookify.API",
-      "projectPath": "/Users/em/Desktop/Z.Hajder/Bookify/Bookify.API/Bookify.API.csproj",
+      "projectPath": "/Users/em/Desktop/Studia/Z.Hajder/Bookify/Bookify.API/Bookify.API.csproj",
       "packagesPath": "/Users/em/.nuget/packages/",
-      "outputPath": "/Users/em/Desktop/Z.Hajder/Bookify/Bookify.API/obj/",
+      "outputPath": "/Users/em/Desktop/Studia/Z.Hajder/Bookify/Bookify.API/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
