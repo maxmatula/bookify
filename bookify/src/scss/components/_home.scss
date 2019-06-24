@@ -1,43 +1,50 @@
-body , .bgImage {
-    margin: 0;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-}
-
-.bgImage {
-    position: absolute;
-    background-image: linear-gradient(45deg, $primary, $secondary);
-    background-size: cover;
-    background-position: top;
-    //-webkit-filter: grayscale(70%); /* Safari 6.0 - 9.0 */
-    //filter: grayscale(70%);
-    z-index: -1;
-}
-
-.blobCont {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-}
-.blob {
-    fill: #52d6d3;
-}
-@for $i from 1 through 18 {
-    $a : #{$i*90};
-    $b : #{$i*90+360};
-
-    .blob:nth-child(#{$i}) {
-        animation: move#{$i} 20s infinite linear;
+.component-home  {
+    .bgImage{
+        opacity: 1;
     }
+    .blobCont {
+        -webkit-animation-name: blobFadeIn;
+        -moz-animation-name: blobFadeIn;
+        -o-animation-name: blobFadeIn;
+        animation-name: blobFadeIn;
+        animation-duration: 5s;
+        animation-delay: 0.5s;
+        animation-fill-mode: both;
+    }
+}
 
-    @keyframes move#{$i} {
-        from {
-            transform:rotate(#{$a}deg) translate( 200px ,0.1px) rotate(-#{$a}deg);
-        }
-        to {
-            transform:rotate(#{$b}deg) translate( 200px ,0.1px) rotate(-#{$b}deg);
-        }
+@keyframes blobFadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+.hero-content {
+    color: $white;
+    font-weight: 900;
+    padding: 80px 15px;
+    width: 60vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-animation-name: heroContentFadeIn;
+    -moz-animation-name: heroContentFadeIn;
+    -o-animation-name: heroContentFadeIn;
+    animation-name: heroContentFadeIn;
+    animation-delay: 1s;
+    animation-duration: 2s;
+    animation-fill-mode: both;
+    opacity: 0;
+    h1 {
+        font-weight: inherit;
+    }
+}
+
+@keyframes heroContentFadeIn {
+    to {
+        opacity: 1;
+        transform: translate(-50%, -40%);
     }
 
 }
