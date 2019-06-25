@@ -1,0 +1,53 @@
+.component-home  {
+    > main > .container > .row > .col-12 {
+        height: calc(100vh - 140px);
+    }
+    .bgImage{
+        opacity: 1;
+    }
+    .blobCont {
+        -webkit-animation-name: blobFadeIn;
+        -moz-animation-name: blobFadeIn;
+        -o-animation-name: blobFadeIn;
+        animation-name: blobFadeIn;
+        animation-duration: 5s;
+        animation-delay: 0.5s;
+        animation-fill-mode: both;
+    }
+}
+
+@keyframes blobFadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+.hero-content {
+    color: $white;
+    font-weight: 900;
+    padding: 80px 15px;
+    width: 60vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-animation-name: heroContentFadeIn;
+    -moz-animation-name: heroContentFadeIn;
+    -o-animation-name: heroContentFadeIn;
+    animation-name: heroContentFadeIn;
+    animation-delay: 1s;
+    animation-duration: 2s;
+    animation-fill-mode: both;
+    opacity: 0;
+    h1 {
+        font-weight: inherit;
+    }
+}
+
+@keyframes heroContentFadeIn {
+    to {
+        opacity: 1;
+        transform: translate(-50%, -40%);
+    }
+
+}
