@@ -1,12 +1,9 @@
 <template>
-  <main class="home">
     <div class="hero-content text-center">
       <h1>System zarządzania rezerwacjami</h1>
       <p>Internetowy system zarządzania ośrodkiem wypoczynkowym oraz rezerwacjami.</p>
       <b-button variant="hero" size="lg" to="/login">Zaloguj się</b-button>
     </div>
-
-  </main>
 </template>
 
 <script lang="ts">

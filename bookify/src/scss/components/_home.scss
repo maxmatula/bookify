@@ -1,4 +1,7 @@
 .component-home  {
+    > main > .container > .row > .col-12 {
+        height: calc(100vh - 140px);
+    }
     .bgImage{
         opacity: 1;
     }
