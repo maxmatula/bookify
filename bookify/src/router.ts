@@ -7,6 +7,10 @@ import Equipment from './views/Equipment.vue';
 import EquipmentList from './components/equipment/EquipmentList.vue';
 import EquipmentEdit from './components/equipment/EquipmentEdit.vue';
 import EquipmentAdd from './components/equipment/EquipmentAdd.vue';
+import House from './views/House.vue';
+import HouseList from './components/house/HouseList.vue';
+import HouseAdd from './components/house/HouseAdd.vue';
+import HouseEdit from './components/house/HouseEdit.vue';
 
 Vue.use(Router);
 
@@ -24,7 +28,7 @@ const ifAuthenticated = (to: any, from: any, next: any) => {
     return;
   }
   next('/login');
-}
+};
 
 export default new Router({
   routes: [
@@ -53,6 +57,25 @@ export default new Router({
           name: 'equipment/edit',
           path: ':id',
           component: EquipmentEdit,
+        },
+      ],
+    },
+    {
+      path: '/house',
+      component: House,
+      children: [
+        {
+          path: '',
+          component: HouseList,
+        },
+        {
+          path: 'add',
+          component: HouseAdd,
+        },
+        {
+          name: 'house/edit',
+          path: ':id',
+          component: HouseEdit,
         },
       ],
     },

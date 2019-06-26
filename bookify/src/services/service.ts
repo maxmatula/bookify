@@ -20,7 +20,7 @@ export default class Service {
                  resolve(response.data);
             })
             .catch((error) => {
-                 reject(error);
+                 reject(error.response.data);
             });
         });
      }
@@ -35,7 +35,7 @@ export default class Service {
                 resolve(response.data);
            })
            .catch((error) => {
-                reject(error);
+                reject(error.response.data);
            });
        });
     }

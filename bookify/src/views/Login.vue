@@ -33,11 +33,11 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 export default class Login extends Vue {
     public login: string = '';
     public password: string = '';
-    onSubmit() {
+    public onSubmit() {
         const {login, password} = this;
         this.$store.dispatch('authRequest', { login, password }).then(() => {
-            this.$router.push('/')
-        })
+            this.$router.push('/');
+        });
     }
 }
 </script>

@@ -23,7 +23,7 @@ import EquipmentResponse from '../../models/equipment.model';
 
 @Component
 export default class EquipmentAdd extends Vue {
-    public name = "Wyposażenie - Dodaj";
+    public name = 'Wyposażenie - Dodaj';
     public data: EquipmentResponse = {} as EquipmentResponse;
     public loading = true;
     public fields = [];
@@ -32,7 +32,7 @@ export default class EquipmentAdd extends Vue {
     public created() {
         this.loading = false;
     }
-    private onSubmit(){
+    private onSubmit() {
         this.loading = true;
         this.service.post(this.$route.matched[0].path, this.data)
             .then((response: any) => {

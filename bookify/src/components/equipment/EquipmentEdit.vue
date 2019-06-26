@@ -22,17 +22,18 @@ import Service from '@/services/service';
 
 @Component
 export default class EquipmentEdit extends Vue {
-    public name = "Wyposażenie - Edycja";
+    public name = 'Wyposażenie - Edycja';
     public data = {};
     public loading = true;
     public fields = [];
     private service = new Service();
-    
+
     public created() {
         this.fetch();
     }
 
     private fetch() {
+        // model
         this.service.get(this.$route.path)
             .then((response: any) => {
                 this.data = response;
@@ -43,9 +44,11 @@ export default class EquipmentEdit extends Vue {
             .finally(() => {
                 this.loading = false;
             });
-    }
 
-    private onSubmit(){
+    }
+    
+
+    private onSubmit() {
         this.loading = true;
         this.service.post(this.$route.matched[0].path + '/edit', this.data)
             .then((response: any) => {
@@ -59,7 +62,7 @@ export default class EquipmentEdit extends Vue {
             });
 
     }
-    
+
 }
 </script>
 
