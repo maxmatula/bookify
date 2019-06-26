@@ -8,23 +8,6 @@ namespace Bookify.API.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Addresses",
-                columns: table => new
-                {
-                    AddressId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Country = table.Column<string>(nullable: true),
-                    City = table.Column<string>(nullable: true),
-                    Street = table.Column<string>(nullable: true),
-                    HouseNumber = table.Column<string>(nullable: true),
-                    ApartmentNumber = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Addresses", x => x.AddressId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Clients",
                 columns: table => new
                 {
@@ -38,6 +21,29 @@ namespace Bookify.API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Clients", x => x.ClientId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Houses",
+                columns: table => new
+                {
+                    HouseId = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Title = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Rooms = table.Column<int>(nullable: false),
+                    Bathrooms = table.Column<int>(nullable: false),
+                    Floors = table.Column<int>(nullable: false),
+                    Price = table.Column<decimal>(nullable: false),
+                    Country = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    Street = table.Column<string>(nullable: true),
+                    HouseNumber = table.Column<string>(nullable: true),
+                    ApartmentNumber = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Houses", x => x.HouseId);
                 });
 
             migrationBuilder.CreateTable(
@@ -55,31 +61,6 @@ namespace Bookify.API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Houses",
-                columns: table => new
-                {
-                    HouseId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Title = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    Rooms = table.Column<int>(nullable: false),
-                    Bathrooms = table.Column<int>(nullable: false),
-                    Floors = table.Column<int>(nullable: false),
-                    Price = table.Column<decimal>(nullable: false),
-                    AddressId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Houses", x => x.HouseId);
-                    table.ForeignKey(
-                        name: "FK_Houses_Addresses_AddressId",
-                        column: x => x.AddressId,
-                        principalTable: "Addresses",
-                        principalColumn: "AddressId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -150,12 +131,6 @@ namespace Bookify.API.Migrations
                 name: "IX_Equipments_HouseId",
                 table: "Equipments",
                 column: "HouseId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Houses_AddressId",
-                table: "Houses",
-                column: "AddressId",
-                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -174,9 +149,6 @@ namespace Bookify.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "Houses");
-
-            migrationBuilder.DropTable(
-                name: "Addresses");
         }
     }
 }

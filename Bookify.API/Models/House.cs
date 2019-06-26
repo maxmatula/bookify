@@ -11,9 +11,11 @@ namespace Bookify.API.Models
         public int Bathrooms { get; set; }
         public int Floors { get; set; }
         public decimal Price { get; set; }
-
-        public int AddressId { get; set; }
-        public Address Address { get; set; }
+        public string Country { get; set; }
+        public string City { get; set; }
+        public string Street { get; set; }
+        public string HouseNumber { get; set; }
+        public string ApartmentNumber { get; set; }
         public ICollection<Equipment> Equipment { get; set; }
         public ICollection<Booking> Bookings { get; set; }
     }

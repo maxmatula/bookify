@@ -16,26 +16,6 @@ namespace Bookify.API.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062");
 
-            modelBuilder.Entity("Bookify.API.Models.Address", b =>
-                {
-                    b.Property<int>("AddressId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ApartmentNumber");
-
-                    b.Property<string>("City");
-
-                    b.Property<string>("Country");
-
-                    b.Property<string>("HouseNumber");
-
-                    b.Property<string>("Street");
-
-                    b.HasKey("AddressId");
-
-                    b.ToTable("Addresses");
-                });
-
             modelBuilder.Entity("Bookify.API.Models.Booking", b =>
                 {
                     b.Property<int>("BookingId")
@@ -109,24 +89,29 @@ namespace Bookify.API.Migrations
                     b.Property<int>("HouseId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AddressId");
+                    b.Property<string>("ApartmentNumber");
 
                     b.Property<int>("Bathrooms");
+
+                    b.Property<string>("City");
+
+                    b.Property<string>("Country");
 
                     b.Property<string>("Description");
 
                     b.Property<int>("Floors");
 
+                    b.Property<string>("HouseNumber");
+
                     b.Property<decimal>("Price");
 
                     b.Property<int>("Rooms");
 
+                    b.Property<string>("Street");
+
                     b.Property<string>("Title");
 
                     b.HasKey("HouseId");
-
-                    b.HasIndex("AddressId")
-                        .IsUnique();
 
                     b.ToTable("Houses");
                 });
@@ -167,14 +152,6 @@ namespace Bookify.API.Migrations
                     b.HasOne("Bookify.API.Models.House")
                         .WithMany("Equipment")
                         .HasForeignKey("HouseId");
-                });
-
-            modelBuilder.Entity("Bookify.API.Models.House", b =>
-                {
-                    b.HasOne("Bookify.API.Models.Address", "Address")
-                        .WithOne("House")
-                        .HasForeignKey("Bookify.API.Models.House", "AddressId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
