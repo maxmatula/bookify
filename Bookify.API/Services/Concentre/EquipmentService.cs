@@ -58,7 +58,9 @@ namespace Bookify.API.Services.Concentre
 
         public async Task<List<EquipmentDto>> GetAll()
         {
-            var equipment = await _db.Equipments.ToListAsync();
+            var equipment = await _db.Equipments
+            .Include(e => e.House)
+            .ToListAsync();
 
             if (equipment == null)
             {
@@ -73,7 +75,9 @@ namespace Bookify.API.Services.Concentre
 
         public async Task<EquipmentDto> GetById(int id)
         {
-            var equipment = await _db.Equipments.FirstOrDefaultAsync(x => x.EquipmentId == id);
+            var equipment = await _db.Equipments
+            .Include(e => e.House)
+            .FirstOrDefaultAsync(x => x.EquipmentId == id);
 
             var equipmentToReturn = _mapper.Map<EquipmentDto>(equipment);
             return equipmentToReturn;

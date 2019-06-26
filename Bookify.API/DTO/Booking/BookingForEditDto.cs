@@ -4,7 +4,7 @@ using Bookify.API.DTO.House;
 
 namespace Bookify.API.DTO.Booking
 {
-    public class BookingDto
+    public class BookingForEditDto
     {
         public int BookingId { get; set; }
         public DateTime BookingDate { get; set; }
