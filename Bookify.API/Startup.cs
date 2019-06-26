@@ -41,6 +41,7 @@ namespace Bookify.API
             services.AddScoped<IEquipmentService, EquipmentService>();
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<IHouseService, HouseService>();
+            services.AddScoped<IBookingService, BookingService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
