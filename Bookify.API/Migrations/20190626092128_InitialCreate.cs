@@ -77,8 +77,8 @@ namespace Bookify.API.Migrations
                     Animals = table.Column<int>(nullable: false),
                     AdvancePaid = table.Column<bool>(nullable: false),
                     IsPaid = table.Column<bool>(nullable: false),
-                    HouseId = table.Column<int>(nullable: true),
-                    ClientId = table.Column<int>(nullable: true)
+                    HouseId = table.Column<int>(nullable: false),
+                    ClientId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -88,13 +88,13 @@ namespace Bookify.API.Migrations
                         column: x => x.ClientId,
                         principalTable: "Clients",
                         principalColumn: "ClientId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Bookings_Houses_HouseId",
                         column: x => x.HouseId,
                         principalTable: "Houses",
                         principalColumn: "HouseId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -104,7 +104,7 @@ namespace Bookify.API.Migrations
                     EquipmentId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
-                    HouseId = table.Column<int>(nullable: true)
+                    HouseId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -114,7 +114,7 @@ namespace Bookify.API.Migrations
                         column: x => x.HouseId,
                         principalTable: "Houses",
                         principalColumn: "HouseId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

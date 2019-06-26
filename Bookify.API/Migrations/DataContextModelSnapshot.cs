@@ -29,13 +29,13 @@ namespace Bookify.API.Migrations
 
                     b.Property<DateTime>("BookingDate");
 
-                    b.Property<int?>("ClientId");
+                    b.Property<int>("ClientId");
 
                     b.Property<DateTime>("DateFrom");
 
                     b.Property<DateTime>("DateTo");
 
-                    b.Property<int?>("HouseId");
+                    b.Property<int>("HouseId");
 
                     b.Property<bool>("IsPaid");
 
@@ -73,7 +73,7 @@ namespace Bookify.API.Migrations
                     b.Property<int>("EquipmentId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("HouseId");
+                    b.Property<int>("HouseId");
 
                     b.Property<string>("Name");
 
@@ -140,18 +140,21 @@ namespace Bookify.API.Migrations
                 {
                     b.HasOne("Bookify.API.Models.Client", "Client")
                         .WithMany("Bookings")
-                        .HasForeignKey("ClientId");
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Bookify.API.Models.House", "House")
                         .WithMany("Bookings")
-                        .HasForeignKey("HouseId");
+                        .HasForeignKey("HouseId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Bookify.API.Models.Equipment", b =>
                 {
-                    b.HasOne("Bookify.API.Models.House")
+                    b.HasOne("Bookify.API.Models.House", "House")
                         .WithMany("Equipment")
-                        .HasForeignKey("HouseId");
+                        .HasForeignKey("HouseId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

@@ -4,5 +4,6 @@ namespace Bookify.API.DTO.Equipment.Return
     {
         public int EquipmentId { get; set; }
         public string Name { get; set; }
+        public int HouseId { get; set; }
     }
 }
