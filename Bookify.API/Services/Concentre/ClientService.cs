@@ -57,7 +57,9 @@ namespace Bookify.API.Services.Concentre
 
         public async Task<List<ClientDto>> GetAll()
         {
-            var clients = await _db.Clients.ToListAsync();
+            var clients = await _db.Clients
+            .Include(c => c.Bookings)
+            .ToListAsync();
 
             if (clients == null)
             {
@@ -72,7 +74,9 @@ namespace Bookify.API.Services.Concentre
 
         public async Task<ClientDto> GetById(int id)
         {
-            var client = await _db.Clients.FirstOrDefaultAsync(x => x.ClientId == id);
+            var client = await _db.Clients
+            .Include(c => c.Bookings)
+            .FirstOrDefaultAsync(x => x.ClientId == id);
 
             var clientToReturn = _mapper.Map<ClientDto>(client);
             return clientToReturn;
