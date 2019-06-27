@@ -15,7 +15,7 @@
 												<b-navbar-nav class="mr-0">
 														<b-nav-item to="/">Home</b-nav-item>
 														<b-nav-item to="/equipment">Wyposażenie</b-nav-item>
-														<b-nav-item to="/client">Rezerwacje</b-nav-item>
+														<b-nav-item to="/house">Domki</b-nav-item>
 														<b-nav-item class="outline" to="/login" v-if="!$store.getters.isAuthenticated">Zaloguj się</b-nav-item>
 														<b-nav-item @click="logout()" v-if="$store.getters.isAuthenticated">Wyloguj się</b-nav-item>
 

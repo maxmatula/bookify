@@ -12,6 +12,7 @@ body, .bgImage {
     margin: 0;
     height: 100%;
     width: 100%;
+    overflow-x: hidden;
 }
 .bgImage {
     overflow: hidden;
@@ -19,7 +20,7 @@ body, .bgImage {
 
 
 .bgImage {
-    position: absolute;
+    position: fixed;
     background-image: linear-gradient(45deg, $primary, $secondary);
     background-size: cover;
     background-position: top;

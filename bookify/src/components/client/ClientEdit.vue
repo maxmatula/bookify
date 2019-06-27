@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>{{name}} (#{{data.equipmentId}})</h1>
+        <h1>{{name}} (#{{data.clientId}})</h1>
         <p>
             <b-link :to="$route.matched[0].path">&laquo; Wróć</b-link>
         </p>
@@ -18,23 +18,39 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import Service from '@/services/service';
-import EquipmentResponse from '../../models/equipment.model';
+import Service from '../../services/service';
 
 @Component
-export default class EquipmentAdd extends Vue {
-    public name = 'Wyposażenie - Dodaj';
-    public data: EquipmentResponse = {} as EquipmentResponse;
+export default class ClientEdit extends Vue {
+    public name = 'Klienci - Edycja';
+    public data = {};
     public loading = true;
     public fields = [];
     private service = new Service();
 
     public created() {
-        this.loading = false;
+        this.fetch();
     }
+
+    private fetch() {
+        // model
+        this.service.get(this.$route.path)
+            .then((response: any) => {
+                this.data = response;
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+            .finally(() => {
+                this.loading = false;
+            });
+
+    }
+    
+
     private onSubmit() {
         this.loading = true;
-        this.service.post(this.$route.matched[0].path, this.data)
+        this.service.post(this.$route.matched[0].path + '/edit', this.data)
             .then((response: any) => {
                this.$router.push(this.$route.matched[0].path);
             })
@@ -44,7 +60,9 @@ export default class EquipmentAdd extends Vue {
             .finally(() => {
                 this.loading = false;
             });
+
     }
+
 }
 </script>
 

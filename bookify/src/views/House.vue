@@ -9,9 +9,9 @@ import Service from '@/services/service';
 import EquipmentResponse from '@/models/equipment.model';
 
 @Component({
-    name: 'Wyposażenie',
+    name: 'Domki',
 })
-export default class Equipment extends Vue {
+export default class House extends Vue {
 
 }
 </script>

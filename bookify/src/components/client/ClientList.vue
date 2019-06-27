@@ -11,10 +11,10 @@
           </div>
           <template slot="show_details" slot-scope="data">
             <b-button-group>
-              <b-button title="Edytuj" :to="{ name: ($route.path).replace('/','') + '/edit', params: { id: data.item.equipmentId }}" variant="warning" size="sm">
+              <b-button title="Edytuj" :to="{ name: ($route.path).replace('/','') + '/edit', params: { id: data.item.clientId }}" variant="warning" size="sm">
                 Edytuj
               </b-button>
-              <b-button @click="onDelete(data.item.equipmentId)" variant="danger" size="sm" title="Usuń">
+              <b-button @click="onDelete(data.item.clientId)" variant="danger" size="sm" title="Usuń">
                 Usuń
                 </b-button>
             </b-button-group>
@@ -25,18 +25,18 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import Service from '@/services/service';
-import EquipmentResponse from '@/models/equipment.model';
+import Service from '../../services/service';
+import ClientResponse from '@/models/client.model';
 
 @Component({
-  name: 'Wyposażenie',
+  name: 'Klienci',
 })
-export default class EquipmentList extends Vue {
+export default class ClientList extends Vue {
     public data = [];
     public loading = true;
 
     public fields: {} = {
-      equipmentId: {
+      clientId: {
         label: '#',
         sortable: true,
       },

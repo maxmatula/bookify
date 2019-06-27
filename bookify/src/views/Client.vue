@@ -5,13 +5,13 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import Service from '@/services/service';
-import EquipmentResponse from '@/models/equipment.model';
+import Service from '../services/service';
+import EquipmentResponse from '../models/equipment.model';
 
 @Component({
-    name: 'Wyposażenie',
+    name: 'Klienci',
 })
-export default class Equipment extends Vue {
+export default class Client extends Vue {
 
 }
 </script>

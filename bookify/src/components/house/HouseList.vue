@@ -9,12 +9,15 @@
             <b-spinner class="align-middle"></b-spinner>
             <strong> Ładowanie...</strong>
           </div>
+          <template slot="price" slot-scope="data">
+            {{data.item.price}} zł
+          </template>
           <template slot="show_details" slot-scope="data">
             <b-button-group>
-              <b-button title="Edytuj" :to="{ name: ($route.path).replace('/','') + '/edit', params: { id: data.item.equipmentId }}" variant="warning" size="sm">
+              <b-button title="Edytuj" :to="{ name: ($route.path).replace('/','') + '/edit', params: { id: data.item.houseId }}" variant="warning" size="sm">
                 Edytuj
               </b-button>
-              <b-button @click="onDelete(data.item.equipmentId)" variant="danger" size="sm" title="Usuń">
+              <b-button @click="onDelete(data.item.houseId)" variant="danger" size="sm" title="Usuń">
                 Usuń
                 </b-button>
             </b-button-group>
@@ -26,23 +29,35 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import Service from '@/services/service';
-import EquipmentResponse from '@/models/equipment.model';
+import HouseResponse from '@/models/house.model';
 
 @Component({
-  name: 'Wyposażenie',
+  name: 'Domki',
 })
-export default class EquipmentList extends Vue {
+export default class HouseList extends Vue {
     public data = [];
     public loading = true;
 
     public fields: {} = {
-      equipmentId: {
-        label: '#',
+      title: {
+        label: 'Nazwa',
         sortable: true,
       },
-      name: {
-        label: 'Nazwa',
-        sortable: false,
+      rooms: {
+        label: 'Pokoje',
+        sortable: true,
+      },
+      bathrooms: {
+        label: 'Łazienki',
+        sortable: true,
+      },
+      floors: {
+        label: 'Piętra',
+        sortable: true,
+      },
+      price: {
+        label: 'Koszt (doba)',
+        sortable: true,
       },
       show_details: {
         label: '',
