@@ -58,7 +58,7 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import Service from '@/services/home.service';
+import Service from '../../services/home.service';
 import HouseResponse from '../../models/house.model';
 
 @Component

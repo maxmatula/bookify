@@ -50,7 +50,7 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import Service from '@/services/home.service';
+import Service from '../../services/home.service';
 
 @Component
 export default class HouseEdit extends Vue {

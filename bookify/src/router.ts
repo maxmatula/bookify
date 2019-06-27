@@ -11,6 +11,10 @@ import House from './views/House.vue';
 import HouseList from './components/house/HouseList.vue';
 import HouseAdd from './components/house/HouseAdd.vue';
 import HouseEdit from './components/house/HouseEdit.vue';
+import Client from './views/Client.vue';
+import ClientList from './components/client/ClientList.vue';
+import ClientAdd from './components/client/ClientAdd.vue';
+import ClientEdit from './components/client/ClientEdit.vue';
 
 Vue.use(Router);
 
@@ -76,6 +80,25 @@ export default new Router({
           name: 'house/edit',
           path: ':id',
           component: HouseEdit,
+        },
+      ],
+    },
+    {
+      path: '/client',
+      component: Client,
+      children: [
+        {
+          path: '',
+          component: ClientList,
+        },
+        {
+          path: 'add',
+          component: ClientAdd,
+        },
+        {
+          name: 'client/edit',
+          path: ':id',
+          component: ClientEdit,
         },
       ],
     },
