@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bookify.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190626092128_InitialCreate")]
+    [Migration("20190627125418_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -104,6 +104,8 @@ namespace Bookify.API.Migrations
                     b.Property<int>("Floors");
 
                     b.Property<string>("HouseNumber");
+
+                    b.Property<int>("MaxPersonCount");
 
                     b.Property<decimal>("Price");
 

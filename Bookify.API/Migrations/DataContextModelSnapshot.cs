@@ -103,6 +103,8 @@ namespace Bookify.API.Migrations
 
                     b.Property<string>("HouseNumber");
 
+                    b.Property<int>("MaxPersonCount");
+
                     b.Property<decimal>("Price");
 
                     b.Property<int>("Rooms");

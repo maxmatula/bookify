@@ -32,6 +32,7 @@ namespace Bookify.API.Migrations
                     Title = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Rooms = table.Column<int>(nullable: false),
+                    MaxPersonCount = table.Column<int>(nullable: false),
                     Bathrooms = table.Column<int>(nullable: false),
                     Floors = table.Column<int>(nullable: false),
                     Price = table.Column<decimal>(nullable: false),

@@ -8,6 +8,7 @@ namespace Bookify.API.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public int Rooms { get; set; }
+        public int MaxPersonCount { get; set; }
         public int Bathrooms { get; set; }
         public int Floors { get; set; }
         public decimal Price { get; set; }
