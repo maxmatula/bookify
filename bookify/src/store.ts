@@ -8,7 +8,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     appName: 'Bookify',
-    apiUrl: 'http://localhost:8000/',
+    apiUrl: 'http://localhost:5000/',
     token: localStorage.getItem('user-token') || '',
     status: '',
   },
@@ -31,30 +31,20 @@ export default new Vuex.Store({
   actions: {
     authRequest(context, user) {
       return new Promise((resolve, reject) => {
-        context.commit('AUTH_REQUEST');
-        Http({url: 'api/identity/authenticate', data: user, method: 'post',
-          headers: {'Content-Type': 'application/x-www-form-urlencoded' },
-        })
-          .then((resp: any) => {
-            const token = resp.data.token;
-            localStorage.setItem('user-token', token);
-            // Axios.defaults.headers.common['Authorization'] = token;
-            context.commit('AUTH_SUCCESS', token);
-            resolve(resp);
-          })
-          .catch((err: any) => {
-            alert(err.response.data.message);
-            context.commit('AUTH_ERROR', err);
-            localStorage.removeItem('user-token');
-            reject(err);
-          });
+          context.commit('AUTH_REQUEST');
+          if(user.login === 'admin' && user.password === 'admin') {
+            localStorage.setItem('user-token', 'o28137v60239');
+            context.commit('AUTH_SUCCESS', 'o28137v60239');
+            resolve();
+          }
+          reject();
+          context.commit('AUTH_ERROR', 'Błędne dane logowania');
       });
     },
     authLogout(context) {
       return new Promise((resolve, reject) => {
         context.commit('AUTH_LOGOUT');
         localStorage.removeItem('user-token');
-        // delete Axios.defaults.headers.common['Authorization']
         resolve();
       });
     },

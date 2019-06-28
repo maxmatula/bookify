@@ -7,8 +7,17 @@
         <div class="row">
             <div class="col-sm-12 col-md-6">
                 <b-form @submit="onSubmit">
-                    <b-form-group label="Nazwa" label-for="modelName">
-                        <b-form-input id="modelName" v-model="data.name" type="text" required placeholder="Wpisz nazwę"></b-form-input>
+                    <b-form-group label="Imię">
+                        <b-form-input v-model="data.name" type="text" required placeholder="Wpisz imię"></b-form-input>
+                    </b-form-group>
+                    <b-form-group label="Nazwisko">
+                        <b-form-input v-model="data.lastname" type="text" required placeholder="Wpisz nazwisko"></b-form-input>
+                    </b-form-group>
+                    <b-form-group label="Adres e-mail">
+                        <b-form-input v-model="data.email" type="email" required placeholder="Wpisz adres e-mail"></b-form-input>
+                    </b-form-group>
+                    <b-form-group label="Telefon">
+                        <b-form-input v-model="data.phone" type="text" required placeholder="Wpisz telefon"></b-form-input>
                     </b-form-group>
                     <b-button type="submit" variant="warning" :disabled="loading"><b-spinner class="align-middle" v-if="loading"></b-spinner> Aktualizuj</b-button>
                 </b-form>
@@ -46,7 +55,7 @@ export default class ClientEdit extends Vue {
             });
 
     }
-    
+
 
     private onSubmit() {
         this.loading = true;

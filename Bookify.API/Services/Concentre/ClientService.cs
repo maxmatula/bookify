@@ -19,7 +19,7 @@ namespace Bookify.API.Services.Concentre
             _db = db;
 
         }
-        public async Task<bool> Create(ClientForCreateDto client)
+        public async Task<int> Create(ClientForCreateDto client)
         {
             var clientToAdd = _mapper.Map<Client>(client);
 
@@ -27,10 +27,10 @@ namespace Bookify.API.Services.Concentre
             {
                 await _db.Clients.AddAsync(clientToAdd);
                 await _db.SaveChangesAsync();
-                return true;
+                return clientToAdd.ClientId;
             }
 
-            return false;
+            return 0;
         }
 
         public async Task<bool> Delete(int id)

@@ -46,7 +46,7 @@ export default class EquipmentEdit extends Vue {
             });
 
     }
-    
+
 
     private onSubmit() {
         this.loading = true;

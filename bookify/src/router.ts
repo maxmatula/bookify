@@ -15,6 +15,10 @@ import Client from './views/Client.vue';
 import ClientList from './components/client/ClientList.vue';
 import ClientAdd from './components/client/ClientAdd.vue';
 import ClientEdit from './components/client/ClientEdit.vue';
+import Booking from './views/Booking.vue';
+import BookingList from './components/booking/BookingList.vue';
+import BookingAdd from './components/booking/BookingAdd.vue';
+import BookingEdit from './components/booking/BookingEdit.vue';
 
 Vue.use(Router);
 
@@ -48,6 +52,7 @@ export default new Router({
     {
       path: '/equipment',
       component: Equipment,
+      beforeEnter: ifAuthenticated,
       children: [
         {
           path: '',
@@ -67,6 +72,7 @@ export default new Router({
     {
       path: '/house',
       component: House,
+      beforeEnter: ifAuthenticated,
       children: [
         {
           path: '',
@@ -86,6 +92,7 @@ export default new Router({
     {
       path: '/client',
       component: Client,
+      beforeEnter: ifAuthenticated,
       children: [
         {
           path: '',
@@ -103,12 +110,24 @@ export default new Router({
       ],
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
+      path: '/booking',
+      component: Booking,
+      beforeEnter: ifAuthenticated,
+      children: [
+        {
+          path: '',
+          component: BookingList,
+        },
+        {
+          path: 'add',
+          component: BookingAdd,
+        },
+        {
+          name: 'booking/edit',
+          path: ':id',
+          component: BookingEdit,
+        },
+      ],
     },
   ],
 });

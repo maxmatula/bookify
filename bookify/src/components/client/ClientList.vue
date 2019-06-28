@@ -26,7 +26,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import Service from '../../services/service';
-import ClientResponse from '@/models/client.model';
+import ClientResponse from '../../models/client.model';
 
 @Component({
   name: 'Klienci',
@@ -41,8 +41,20 @@ export default class ClientList extends Vue {
         sortable: true,
       },
       name: {
-        label: 'Nazwa',
-        sortable: false,
+        label: 'Imię',
+        sortable: true,
+      },
+      lastname: {
+        label: 'Nazwisko',
+        sortable: true,
+      },
+      email: {
+        label: 'Adres e-mail',
+        sortable: true,
+      },
+      phone: {
+        label: 'Telefon',
+        sortable: true,
       },
       show_details: {
         label: '',

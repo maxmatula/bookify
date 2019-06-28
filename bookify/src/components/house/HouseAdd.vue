@@ -12,6 +12,9 @@
                 <b-form-group label="Nazwa" label-for="description">
                         <b-form-textarea id="description" v-model="data.description" placeholder="Opis" rows="3" max-rows="6" ></b-form-textarea>
                 </b-form-group>
+                <b-form-group label="Ilość miejsc" label-for="maxPersonCount">
+                    <b-form-select v-model="data.maxPersonCount" :options="service.maxPersonCount"></b-form-select>
+                </b-form-group>
                 <b-form-group label="Liczba pięter" label-for="floors">
                     <b-form-select v-model="data.floors" :options="service.floors"></b-form-select>
                 </b-form-group>

@@ -19,7 +19,7 @@
                     <b-form-group label="Telefon">
                         <b-form-input v-model="data.phone" type="text" required placeholder="Wpisz telefon"></b-form-input>
                     </b-form-group>
-                    <b-button type="submit" variant="warning" :disabled="loading"><b-spinner class="align-middle" v-if="loading"></b-spinner> Aktualizuj</b-button>
+                    <b-button type="submit" variant="success" :disabled="loading"><b-spinner class="align-middle" v-if="loading"></b-spinner> Dodaj</b-button>
                 </b-form>
             </div>
         </div>

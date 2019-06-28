@@ -9,15 +9,33 @@
             <b-spinner class="align-middle"></b-spinner>
             <strong> Ładowanie...</strong>
           </div>
+          <template slot="bookingId" slot-scope="data">
+            #{{data.item.bookingId}}
+          </template>
+          <template slot="dateFrom" slot-scope="data">
+            {{getFormattedDate(data.item.dateFrom)}}
+          </template>
+          <template slot="dateTo" slot-scope="data">
+            {{getFormattedDate(data.item.dateTo)}}
+          </template>
+          <template slot="advancePaid" slot-scope="data">
+            {{getFormattedBool(data.item.advancePaid)}}
+          </template>
+          <template slot="isPaid" slot-scope="data">
+            {{getFormattedBool(data.item.isPaid)}}
+          </template>
+          <template slot="bookingDate" slot-scope="data">
+            {{getFormattedDate(data.item.bookingDate)}}
+          </template>
           <template slot="price" slot-scope="data">
             {{data.item.price}} zł
           </template>
           <template slot="show_details" slot-scope="data">
             <b-button-group>
-              <b-button title="Edytuj" :to="{ name: ($route.path).replace('/','') + '/edit', params: { id: data.item.houseId }}" variant="warning" size="sm">
+              <b-button title="Edytuj" :to="{ name: ($route.path).replace('/','') + '/edit', params: { id: data.item.bookingId }}" variant="warning" size="sm">
                 Edytuj
               </b-button>
-              <b-button @click="onDelete(data.item.houseId)" variant="danger" size="sm" title="Usuń">
+              <b-button @click="onDelete(data.item.bookingId)" variant="danger" size="sm" title="Usuń">
                 Usuń
                 </b-button>
             </b-button-group>
@@ -29,38 +47,45 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import Service from '../../services/service';
-import HouseResponse from '../../models/house.model';
+import BookingResponse from '../../models/booking.model';
 
 @Component({
-  name: 'Domki',
+  name: 'Rezerwacje',
 })
-export default class HouseList extends Vue {
+export default class BookingList extends Vue {
     public data = [];
     public loading = true;
-
     public fields: {} = {
-      title: {
-        label: 'Nazwa',
+      bookingId: {
+        label: 'Numer rez.',
         sortable: true,
       },
-      maxPersonCount: {
-        label: 'Ilość miejsc',
+      dateFrom: {
+        label: 'Pobyt od',
         sortable: true,
       },
-      rooms: {
-        label: 'Pokoje',
+      dateTo: {
+        label: 'Pobyt do',
         sortable: true,
       },
-      bathrooms: {
-        label: 'Łazienki',
+      adults: {
+        label: 'Dorośli',
         sortable: true,
       },
-      floors: {
-        label: 'Piętra',
+      kids: {
+        label: 'Dzieci',
         sortable: true,
       },
-      price: {
-        label: 'Koszt (doba)',
+      advancePaid: {
+        label: 'Zaliczka',
+        sortable: true,
+      },
+      isPaid: {
+        label: 'Opłacono w całości',
+        sortable: true,
+      },
+      bookingDate: {
+        label: 'Data rezerwacji',
         sortable: true,
       },
       show_details: {
@@ -68,9 +93,18 @@ export default class HouseList extends Vue {
       },
     };
     private service = new Service();
-
     public created() {
         this.fetch();
+    }
+
+    public getFormattedDate(d: string) {
+      var date = new Date(d);
+      var str = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+      return str;
+    }
+    public getFormattedBool(b: boolean) {
+      if(b) return 'Tak';
+      return 'Nie';
     }
 
     private fetch() {
@@ -86,6 +120,7 @@ export default class HouseList extends Vue {
                 this.loading = false;
             });
     }
+
     private onDelete(id: number) {
       const agree = confirm('Czy na pewno chcesz usunąć tą pozycję?');
       if (!agree) { return; }
@@ -104,15 +139,5 @@ export default class HouseList extends Vue {
     }
 }
 </script>
-<style lang="scss">
-  tr{
-    td, th{
-      text-align: left !important;
-      &:last-child {
-      text-align: right !important;
-    }
-    }
-  }
-</style>
 
 

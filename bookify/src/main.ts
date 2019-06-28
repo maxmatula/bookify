@@ -8,11 +8,16 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
 import '@/scss/style.scss';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
-// import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { faCalendar, faHome, faUsers, faCogs, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-library.add(faTrash);
-library.add(faPencilAlt);
+Vue.component('font-awesome-icon', FontAwesomeIcon);
+
+library.add(faCalendar);
+library.add(faHome);
+library.add(faUsers);
+library.add(faCogs);
+library.add(faExclamationCircle);
 
 import BootstrapVue from 'bootstrap-vue';
 

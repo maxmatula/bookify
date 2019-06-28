@@ -5,6 +5,7 @@ export default class HouseResponse {
     public HouseId: number | undefined;
     public Title: string | undefined;
     public Description: string | undefined;
+    public MaxPersonCount: number | undefined;
     public Rooms: number | undefined;
     public Bathrooms: number | undefined;
     public Floors: number | undefined;

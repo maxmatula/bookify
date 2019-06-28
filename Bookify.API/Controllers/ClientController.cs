@@ -44,9 +44,9 @@ namespace Bookify.API.Controllers
 
             var result = await _clientService.Create(client);
 
-            if (result)
+            if (result != 0)
             {
-                return Ok("Created successfully");
+                return Ok(result);
             }
             else 
             {

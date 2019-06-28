@@ -78,7 +78,7 @@ namespace Bookify.API.Services.Concentre
             var booking = await _db.Bookings
             .Include(c => c.Client)
             .Include(c => c.House)
-            .FirstOrDefaultAsync(x => x.ClientId == id);
+            .FirstOrDefaultAsync(x => x.BookingId == id);
 
             var bookingToReturn = _mapper.Map<BookingDto>(booking);
             return bookingToReturn;
