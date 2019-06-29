@@ -3,9 +3,10 @@ import BookingResponse from './booking.model';
 
 export default class HouseResponse {
     public houseId: number | undefined;
+    public bookings: BookingResponse[] | undefined;
     public Title: string | undefined;
     public Description: string | undefined;
-    public MaxPersonCount: number | undefined;
+    public maxPersonCount: number | undefined;
     public Rooms: number | undefined;
     public Bathrooms: number | undefined;
     public Floors: number | undefined;

@@ -12,6 +12,13 @@
           <template slot="bookingId" slot-scope="data">
             #{{data.item.bookingId}}
           </template>
+          <template slot="client" slot-scope="data">
+            {{data.item.client.name}}&nbsp;{{data.item.client.lastname}}<br>
+            <a :href="'tel:'+data.item.client.phone">{{data.item.client.phone}}</a>
+          </template>
+          <template slot="maxPersonCount" slot-scope="data">
+            {{parseInt(data.item.adults, 10) + parseInt(data.item.kids, 10)}}
+          </template>
           <template slot="dateFrom" slot-scope="data">
             {{getFormattedDate(data.item.dateFrom)}}
           </template>
@@ -62,6 +69,10 @@ export default class BookingList extends Vue {
         label: 'Numer rez.',
         sortable: true,
       },
+      client: {
+        label: 'Klient',
+        sortable: true,
+      },
       dateFrom: {
         label: 'Pobyt od',
         sortable: true,
@@ -70,12 +81,8 @@ export default class BookingList extends Vue {
         label: 'Pobyt do',
         sortable: true,
       },
-      adults: {
-        label: 'Dorośli',
-        sortable: true,
-      },
-      kids: {
-        label: 'Dzieci',
+      maxPersonCount: {
+        label: 'Ilość osób',
         sortable: true,
       },
       advancePaid: {
@@ -86,10 +93,10 @@ export default class BookingList extends Vue {
         label: 'Opłacono w całości',
         sortable: true,
       },
-      bookingDate: {
-        label: 'Data rezerwacji',
-        sortable: true,
-      },
+      // bookingDate: {
+      //   label: 'Data rezerwacji',
+      //   sortable: true,
+      // },
       show_details: {
         label: '',
       },
@@ -101,7 +108,12 @@ export default class BookingList extends Vue {
 
     public getFormattedDate(d: string) {
       const date = new Date(d);
-      const str = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
+      const year = date.getFullYear();
+      let month = (date.getMonth() + 1).toString();
+      if (parseInt(month, 10) < 10) { month = '0' + month; }
+      let day = date.getDate().toString();
+      if (parseInt(day, 10) < 10) { day = '0' + day; }
+      const str = day + '-' + month + '-' + year;
       return str;
     }
     public getFormattedBool(b: boolean) {
@@ -141,5 +153,13 @@ export default class BookingList extends Vue {
     }
 }
 </script>
+<style lang="scss" scoped>
+  table {
+    tr,td {
+      vertical-align: center;
+    }
+  }
+</style>
+
 
 

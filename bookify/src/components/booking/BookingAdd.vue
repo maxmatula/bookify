@@ -251,7 +251,7 @@ export default class BookingAdd extends Vue {
 
     public onClientFormSubmit() {
         this.loading = true;
-        this.service.post('client', this.data)
+        this.service.post('client', this.newClientObject)
             .then((response: any) => {
                this.data.clientId = parseInt(response, 10);
                this.step++;
@@ -265,9 +265,13 @@ export default class BookingAdd extends Vue {
     }
     public getFormattedDate(d: string) {
       const date = new Date(d);
-      const str = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
+      const year = date.getFullYear();
+      let month = (date.getMonth() + 1).toString();
+      if (parseInt(month, 10) < 10) { month = '0' + month; }
+      const str = year + '-' + month + '-' + date.getDate();
       return str;
     }
+
     private onSubmit() {
         this.loading = true;
         this.service.post(this.$route.matched[0].path, this.data)
@@ -287,7 +291,32 @@ export default class BookingAdd extends Vue {
       this.service.get('house')
             .then((response: any) => {
                 const houses = response;
-                this.houses = houses.filter((item: any) => item.maxPersonCount >= this.maxPersonCount);
+                this.houses = houses.filter((item: any) => {
+                    
+                    if(item !== undefined){
+                        if(item.bookings.length === 0 || item.bookings === undefined) {
+                            return item.maxPersonCount >= this.maxPersonCount;
+                        }
+                        if(this.data.dateFrom !== undefined && this.data.dateTo !== undefined ){
+                            const bookingDateFrom = new Date(this.getFormattedDate(this.data.dateFrom)).getTime();
+                            const bookingDateTo = new Date(this.getFormattedDate(this.data.dateTo)).getTime();
+                            let available = true;
+                            item.bookings.forEach((element: any) => {
+                                const houseDateFrom = new Date(this.getFormattedDate(element.dateFrom)).getTime();
+                                const houseDateTo = new Date(this.getFormattedDate(element.dateTo)).getTime();
+                                if(bookingDateFrom === houseDateFrom
+                                    || bookingDateTo === houseDateTo
+                                    || (bookingDateTo < houseDateTo && bookingDateTo > houseDateFrom)
+                                    || (bookingDateTo > houseDateTo && bookingDateFrom > houseDateFrom && bookingDateFrom < houseDateTo)
+                                    ) available = false;
+                            });
+                            return item.maxPersonCount >= this.maxPersonCount && available;
+
+                        }
+                        return item.maxPersonCount >= this.maxPersonCount;
+                    }
+                    return false;
+                });
             })
             .catch((error) => {
                 const alert = new ErrorFormatter(error);
