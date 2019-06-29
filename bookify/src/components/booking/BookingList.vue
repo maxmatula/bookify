@@ -48,6 +48,8 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import Service from '../../services/service';
 import BookingResponse from '../../models/booking.model';
+import { AxiosError } from 'axios';
+import ErrorFormatter from '../../error';
 
 @Component({
   name: 'Rezerwacje',
@@ -98,12 +100,12 @@ export default class BookingList extends Vue {
     }
 
     public getFormattedDate(d: string) {
-      var date = new Date(d);
-      var str = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+      const date = new Date(d);
+      const str = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
       return str;
     }
     public getFormattedBool(b: boolean) {
-      if(b) return 'Tak';
+      if (b) { return 'Tak'; }
       return 'Nie';
     }
 
@@ -113,8 +115,8 @@ export default class BookingList extends Vue {
             .then((response: any) => {
                 this.data = response;
             })
-            .catch((error) => {
-                console.log(error);
+            .catch((error: AxiosError) => {
+              const alert = new ErrorFormatter(error);
             })
             .finally(() => {
                 this.loading = false;
@@ -130,7 +132,7 @@ export default class BookingList extends Vue {
                 this.data = response;
             })
             .catch((error) => {
-                console.log(error);
+                const alert = new ErrorFormatter(error);
             })
             .finally(() => {
                 this.fetch();

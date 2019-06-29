@@ -95,7 +95,7 @@
                 </b-card>
                 <hr>
                 <p class="text-right d-flex justify-content-between align-items-center">
-                    <b-button variant="outline-warning" size="lg" :disabled="data.clientId == undefined" @click="onSubmit">Aktualizuj</b-button>
+                    <b-button variant="outline-warning" size="lg" :disabled="data.clientId === undefined" @click="onSubmit">Aktualizuj</b-button>
                 </p>
             </div>
         </div>
@@ -108,6 +108,7 @@ import BookingResponse from '../../models/booking.model';
 import HouseResponse from '../../models/house.model';
 import Service from '../../services/service';
 import ClientResponse from '../../models/client.model';
+import ErrorFormatter from '../../error';
 
 @Component
 export default class BookingEdit extends Vue {
@@ -156,11 +157,11 @@ export default class BookingEdit extends Vue {
 
     public constructor() {
         super();
-        // this.data.Adults = '1';
-        // this.data.Kids = '0';
-        // this.data.Animals = '0';
-        // this.data.AdvancePaid = false;
-        // this.data.IsPaid = false;
+        // this.data.adults = '1';
+        // this.data.kids = '0';
+        // this.data.animals = '0';
+        // this.data.advancePaid = false;
+        // this.data.isPaid = false;
     }
 
     public created() {
@@ -169,33 +170,33 @@ export default class BookingEdit extends Vue {
         this.fetchClients();
     }
 
-    public rowClass(item) {
-        return item.houseId == this.choosenHouse.houseId ? 'table-success' : '';
+    public rowClass(item: HouseResponse) {
+        return item.houseId === this.choosenHouse.houseId ? 'table-success' : '';
     }
 
     public get maxPersonCount() {
-        if(this.data['kids'] != undefined && this.data['adults'] != undefined) {
-            return parseInt(this.data['kids']) + parseInt(this.data['adults']);
+        if (this.data.kids !== undefined && this.data.adults !== undefined) {
+            return parseInt(this.data.kids, 10) + parseInt(this.data.adults, 10);
         }
         return 0;
     }
 
     public get housesCount() {
-        return this.houses != undefined && this.houses.length > 0;
+        return this.houses !== undefined && this.houses.length > 0;
     }
 
     public get step1Valid() {
-        if (this.data.DateFrom != undefined && this.data.DateTo != undefined && this.data.Adults != undefined) {
-            const d1 = new Date(this.data.DateFrom);
-            const d2 = new Date(this.data.DateTo);
-            return d1.getTime() < d2.getTime() && parseInt(this.data.Adults) >= 1;
+        if (this.data.dateFrom !== undefined && this.data.dateTo !== undefined && this.data.adults !== undefined) {
+            const d1 = new Date(this.data.dateFrom);
+            const d2 = new Date(this.data.dateTo);
+            return d1.getTime() < d2.getTime() && parseInt(this.data.adults, 10) >= 1;
         }
 
         return false;
     }
 
     public get dateDaysCount() {
-        if (this.data.dateFrom != undefined && this.data.dateTo != undefined) {
+        if (this.data.dateFrom !== undefined && this.data.dateTo !== undefined) {
             const d1 = new Date(this.data.dateFrom);
             const d2 = new Date(this.data.dateTo);
             const diffTime = Math.abs(d2.getTime() - d1.getTime());
@@ -209,22 +210,22 @@ export default class BookingEdit extends Vue {
         this.loading = true;
         this.service.post('client', this.data)
             .then((response: any) => {
-               this.data.ClientId = parseInt(response);
+               this.data.clientId = parseInt(response, 10);
                this.step++;
             })
             .catch((error) => {
-                console.log(error);
+                const alert = new ErrorFormatter(error);
             })
             .finally(() => {
                 this.loading = false;
             });
     }
-    public getFormattedDate(d: string) {    
-      var date = new Date(d);
-      let year = date.getFullYear();
+    public getFormattedDate(d: string) {
+      const date = new Date(d);
+      const year = date.getFullYear();
       let month = (date.getMonth() + 1).toString();
-      if(parseInt(month) < 10) month = '0' + month;
-      var str = year + '-' + month + '-' + date.getDate();
+      if (parseInt(month, 10) < 10) { month = '0' + month; }
+      const str = year + '-' + month + '-' + date.getDate();
       return str;
     }
 
@@ -232,16 +233,15 @@ export default class BookingEdit extends Vue {
         // model
         this.service.get(this.$route.path)
             .then((response: any) => {
-                if(response.dateFrom != undefined && response.dateTo != undefined) {
+                if (response.dateFrom !== undefined && response.dateTo !== undefined) {
                     response.dateFrom = this.getFormattedDate(response.dateFrom);
                     response.dateTo = this.getFormattedDate(response.dateTo);
                 }
                 this.data = response;
                 this.choosenHouse = response.house;
-                console.log(response);
             })
             .catch((error) => {
-                console.log(error);
+                const alert = new ErrorFormatter(error);
             })
             .finally(() => {
                 this.loading = false;
@@ -256,7 +256,7 @@ export default class BookingEdit extends Vue {
                this.$router.push(this.$route.matched[0].path);
             })
             .catch((error) => {
-                console.log(error);
+                const alert = new ErrorFormatter(error);
             })
             .finally(() => {
                 this.loading = false;
@@ -271,7 +271,7 @@ export default class BookingEdit extends Vue {
                 this.houses = houses.filter((item: any) => item.maxPersonCount >= this.maxPersonCount);
             })
             .catch((error) => {
-                console.log(error);
+                const alert = new ErrorFormatter(error);
             })
             .finally(() => {
                 this.step += 1;
@@ -292,7 +292,7 @@ export default class BookingEdit extends Vue {
                 });
             })
             .catch((error) => {
-                console.log(error);
+                const alert = new ErrorFormatter(error);
             })
             .finally(() => {
                 this.step += 1;

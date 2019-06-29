@@ -54,6 +54,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import Service from '../../services/home.service';
+import ErrorFormatter from '../../error';
 
 @Component
 export default class HouseEdit extends Vue {
@@ -73,7 +74,7 @@ export default class HouseEdit extends Vue {
                 this.data = response;
             })
             .catch((error) => {
-                console.log(error);
+                const alert = new ErrorFormatter(error);
             })
             .finally(() => {
                 this.loading = false;
@@ -87,7 +88,7 @@ export default class HouseEdit extends Vue {
                this.$router.push(this.$route.matched[0].path);
             })
             .catch((error) => {
-                console.log(error);
+                const alert = new ErrorFormatter(error);
             })
             .finally(() => {
                 this.loading = false;

@@ -63,6 +63,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import Service from '../../services/home.service';
 import HouseResponse from '../../models/house.model';
+import ErrorFormatter from '../../error';
 
 @Component
 export default class HouseAdd extends Vue {
@@ -86,7 +87,7 @@ export default class HouseAdd extends Vue {
                this.$router.push(this.$route.matched[0].path);
             })
             .catch((error) => {
-                console.log(error);
+                const alert = new ErrorFormatter(error);
             })
             .finally(() => {
                 this.loading = false;

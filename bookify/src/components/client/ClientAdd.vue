@@ -29,6 +29,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import Service from '../../services/service';
 import ClientResponse from '../../models/client.model';
+import ErrorFormatter from '../../error';
 
 @Component
 export default class ClientAdd extends Vue {
@@ -48,7 +49,7 @@ export default class ClientAdd extends Vue {
                this.$router.push(this.$route.matched[0].path);
             })
             .catch((error) => {
-                console.log(error);
+                const alert = new ErrorFormatter(error);
             })
             .finally(() => {
                 this.loading = false;

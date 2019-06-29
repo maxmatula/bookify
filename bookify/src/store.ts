@@ -32,7 +32,7 @@ export default new Vuex.Store({
     authRequest(context, user) {
       return new Promise((resolve, reject) => {
           context.commit('AUTH_REQUEST');
-          if(user.login === 'admin' && user.password === 'admin') {
+          if (user.login === 'admin' && user.password === 'admin') {
             localStorage.setItem('user-token', 'o28137v60239');
             context.commit('AUTH_SUCCESS', 'o28137v60239');
             resolve();

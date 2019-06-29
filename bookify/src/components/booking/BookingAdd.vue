@@ -4,7 +4,7 @@
             <h1>{{name}}</h1>
         </div>
         <div class="col-sm-12 col-md-8">
-            <div v-if="step == 1">
+            <div v-if="step === 1">
                 <p>
                     <b-link :to="$route.matched[0].path">&laquo; Wróć</b-link>
                 </p>
@@ -12,27 +12,27 @@
                 <div class="row">
                     <div class="col-4">
                         <b-form-group label="*Liczba dorosłych">
-                            <b-form-input required type="number" min="1" max="10" v-model="data.Adults"></b-form-input>
+                            <b-form-input required type="number" min="1" max="10" v-model="data.adults"></b-form-input>
                         </b-form-group>
                     </div>
                     <div class="col-4">
                         <b-form-group label="*Liczba dzieci">
-                            <b-form-input required type="number" min="0" max="10" v-model="data.Kids"></b-form-input>
+                            <b-form-input required type="number" min="0" max="10" v-model="data.kids"></b-form-input>
                         </b-form-group>
                     </div>
                     <div class="col-4">
                         <b-form-group label="*Liczba zwierząt">
-                            <b-form-input required type="number" min="0" max="10" v-model="data.Animals"></b-form-input>
+                            <b-form-input required type="number" min="0" max="10" v-model="data.animals"></b-form-input>
                         </b-form-group>
                     </div>
                     <div class="col-6">
                          <b-form-group label="*Data rozpoczęcia pobytu">
-                            <b-form-input required type="date" v-model="data.DateFrom"></b-form-input>
+                            <b-form-input required type="date" v-model="data.dateFrom"></b-form-input>
                         </b-form-group>
                     </div>
                     <div class="col-6">
                         <b-form-group label="*Data zakończenia pobytu">
-                            <b-form-input required type="date" v-model="data.DateTo"></b-form-input>
+                            <b-form-input required type="date" v-model="data.dateTo"></b-form-input>
                         </b-form-group>
                     </div>
                 </div>
@@ -40,13 +40,13 @@
                     <b-button variant="outline-success" @click="fetchHouses" :disabled="!step1Valid">Nastepny krok</b-button>
                 </p>
             </div>
-            <div v-if="step == 2">
+            <div v-if="step === 2">
                 
                 <legend><strong>Krok {{step}}.</strong> Wybierz dostępny domek</legend>
                 <p class="lead">Wyświetlane są jedynie domki spełniające podane kryteria: <br>
                     <b-badge variant="secondary">Ilość osób: <strong>{{ maxPersonCount }}</strong></b-badge> 
-                    <b-badge variant="secondary">Data od: <strong>{{ data.DateFrom }}</strong></b-badge> 
-                    <b-badge variant="secondary">Data do: <strong>{{ data.DateTo }}</strong></b-badge>
+                    <b-badge variant="secondary">Data od: <strong>{{ data.dateFrom }}</strong></b-badge> 
+                    <b-badge variant="secondary">Data do: <strong>{{ data.dateTo }}</strong></b-badge>
                 </p>
                 <b-alert variant="warning" :show="!housesCount"><font-awesome-icon icon="exclamation-circle"></font-awesome-icon> Brak domków spełniających podane kryteria.</b-alert>
                 <b-table striped hover :busy="loading" :items="houses" :fields="fields" v-if="housesCount">
@@ -69,7 +69,7 @@
                     <b-button @click="step -= 1">Poprzedni krok</b-button>
                 </p>
             </div>
-            <div v-if="step == 3">
+            <div v-if="step === 3">
                 <legend><strong>Krok {{step}}.</strong> Uzupełnij dane gościa</legend>
                 <b-form-group label="*Wybierz gościa z listy" label-for="maxPersonCount" v-if="!newClient">
                     <b-form-select required v-model="data.clientId" :options="clients"></b-form-select>
@@ -99,12 +99,12 @@
                 <p class="text-right d-flex justify-content-between align-items-center">
                     <b-button @click="step -= 1">Poprzedni krok</b-button>
                     <b-button variant="outline-success" :disabled="!newClientValid" v-if="newClient" @click="onClientFormSubmit">Nastepny krok</b-button>
-                    <b-button variant="outline-success" :disabled="data.clientId == undefined" v-if="!newClient" @click="step++">Nastepny krok</b-button>
+                    <b-button variant="outline-success" :disabled="data.clientId === undefined" v-if="!newClient" @click="step++">Nastepny krok</b-button>
                 </p>
             </div>
-            <div v-if="step == 4">
+            <div v-if="step === 4">
                 <legend><strong>Krok {{step}}.</strong> Płatność i rezerwacja</legend>
-                <b-form-checkbox v-model="data.AdvancePaid">
+                <b-form-checkbox v-model="data.advancePaid">
                         Zaliczka wpłacona
                 </b-form-checkbox>
                 <b-form-checkbox v-model="data.isPaid">
@@ -117,11 +117,11 @@
                         header-text-variant="white">
                         <b-card-text>
                             <p>Ilość osób: <strong>{{maxPersonCount}}</strong></p>
-                            <p>Ilość dni: <strong>{{dateDaysCount}}</strong> <b-badge variant="default"><small>od {{data.DateFrom}} do {{data.DateTo}}</small></b-badge></p>
+                            <p>Ilość dni: <strong>{{dateDaysCount}}</strong> <b-badge variant="default"><small>od {{data.dateFrom}} do {{data.dateTo}}</small></b-badge></p>
                             <p>Kwota: <strong>{{choosenHouse.price * dateDaysCount}} zł</strong></p>
                             <p>
                                 Zaliczka wpłacona: 
-                                <strong v-if="data.AdvancePaid" class="text-success">Tak</strong>
+                                <strong v-if="data.advancePaid" class="text-success">Tak</strong>
                                 <strong v-else class="text-danger">Nie</strong>
                             </p>
                             <p>
@@ -135,7 +135,7 @@
                 <p class="text-right d-flex justify-content-between align-items-center">
                     <b-button @click="step -= 1">Poprzedni krok</b-button>
                     
-                    <b-button variant="outline-success" size="lg" :disabled="data.clientId == undefined" @click="onSubmit">Zarezerwuj</b-button>
+                    <b-button variant="outline-success" size="lg" :disabled="data.clientId === undefined" @click="onSubmit">Zarezerwuj</b-button>
                 </p>
             </div>
         </div>
@@ -148,6 +148,7 @@ import BookingResponse from '../../models/booking.model';
 import HouseResponse from '../../models/house.model';
 import Service from '../../services/service';
 import ClientResponse from '../../models/client.model';
+import ErrorFormatter from '../../error';
 
 @Component
 export default class BookingAdd extends Vue {
@@ -196,48 +197,51 @@ export default class BookingAdd extends Vue {
 
     public constructor() {
         super();
-        this.data.Adults = '1';
-        this.data.Kids = '0';
-        this.data.Animals = '0';
-        this.data.AdvancePaid = false;
-        this.data.IsPaid = false;
+        this.data.adults = '1';
+        this.data.kids = '0';
+        this.data.animals = '0';
+        this.data.advancePaid = false;
+        this.data.isPaid = false;
     }
 
     public get maxPersonCount() {
-        if(this.data.Kids != undefined && this.data.Adults != undefined) {
-            return parseInt(this.data.Kids) + parseInt(this.data.Adults);
+        if (this.data.kids !== undefined && this.data.adults !== undefined) {
+            return parseInt(this.data.kids, 10) + parseInt(this.data.adults, 10);
         }
         return 0;
     }
 
     public get housesCount() {
-        return this.houses != undefined && this.houses.length > 0;
+        return this.houses !== undefined && this.houses.length > 0;
     }
 
     public get newClientValid() {
         const obj = this.newClientObject;
-        const isUndefined = obj.Name == undefined || obj.Lastname == undefined || obj.Email == undefined || obj.Phone == undefined;
+        const isUndefined = obj.Name === undefined
+        || obj.Lastname === undefined
+        || obj.Email === undefined
+        || obj.Phone === undefined;
         if (!isUndefined) {
-            return obj.Name != '' && obj.Lastname != '' && obj.Email != '' && obj.Phone != '';
+            return obj.Name !== '' && obj.Lastname !== '' && obj.Email !== '' && obj.Phone !== '';
         }
         return false;
 
     }
 
     public get step1Valid() {
-        if (this.data.DateFrom != undefined && this.data.DateTo != undefined && this.data.Adults != undefined) {
-            const d1 = new Date(this.data.DateFrom);
-            const d2 = new Date(this.data.DateTo);
-            return d1.getTime() < d2.getTime() && parseInt(this.data.Adults) >= 1;
+        if (this.data.dateFrom !== undefined && this.data.dateTo !== undefined && this.data.adults !== undefined) {
+            const d1 = new Date(this.data.dateFrom);
+            const d2 = new Date(this.data.dateTo);
+            return d1.getTime() < d2.getTime() && parseInt(this.data.adults, 10) >= 1;
         }
 
         return false;
     }
 
     public get dateDaysCount() {
-        if (this.data.DateFrom != undefined && this.data.DateTo != undefined) {
-            const d1 = new Date(this.data.DateFrom);
-            const d2 = new Date(this.data.DateTo);
+        if (this.data.dateFrom !== undefined && this.data.dateTo !== undefined) {
+            const d1 = new Date(this.data.dateFrom);
+            const d2 = new Date(this.data.dateTo);
             const diffTime = Math.abs(d2.getTime() - d1.getTime());
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
             return diffDays;
@@ -249,19 +253,19 @@ export default class BookingAdd extends Vue {
         this.loading = true;
         this.service.post('client', this.data)
             .then((response: any) => {
-               this.data.ClientId = parseInt(response);
+               this.data.clientId = parseInt(response, 10);
                this.step++;
             })
             .catch((error) => {
-                console.log(error);
+                const alert = new ErrorFormatter(error);
             })
             .finally(() => {
                 this.loading = false;
             });
     }
-    public getFormattedDate(d: string) {    
-      var date = new Date(d);
-      var str = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+    public getFormattedDate(d: string) {
+      const date = new Date(d);
+      const str = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
       return str;
     }
     private onSubmit() {
@@ -271,7 +275,7 @@ export default class BookingAdd extends Vue {
                this.$router.push(this.$route.matched[0].path);
             })
             .catch((error) => {
-                console.log(error);
+                const alert = new ErrorFormatter(error);
             })
             .finally(() => {
                 this.loading = false;
@@ -282,12 +286,11 @@ export default class BookingAdd extends Vue {
       this.loading = true;
       this.service.get('house')
             .then((response: any) => {
-                console.log(response);
                 const houses = response;
                 this.houses = houses.filter((item: any) => item.maxPersonCount >= this.maxPersonCount);
             })
             .catch((error) => {
-                console.log(error);
+                const alert = new ErrorFormatter(error);
             })
             .finally(() => {
                 this.step += 1;
@@ -308,7 +311,7 @@ export default class BookingAdd extends Vue {
                 });
             })
             .catch((error) => {
-                console.log(error);
+                const alert = new ErrorFormatter(error);
             })
             .finally(() => {
                 this.step += 1;

@@ -30,6 +30,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import Service from '../../services/service';
 import HouseResponse from '../../models/house.model';
+import ErrorFormatter from '../../error';
 
 @Component({
   name: 'Domki',
@@ -80,7 +81,7 @@ export default class HouseList extends Vue {
                 this.data = response;
             })
             .catch((error) => {
-                console.log(error);
+                const alert = new ErrorFormatter(error);
             })
             .finally(() => {
                 this.loading = false;
@@ -95,7 +96,7 @@ export default class HouseList extends Vue {
                 this.data = response;
             })
             .catch((error) => {
-                console.log(error);
+                const alert = new ErrorFormatter(error);
             })
             .finally(() => {
                 this.fetch();

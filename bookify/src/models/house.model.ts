@@ -2,7 +2,7 @@ import EquipmentResponse from './equipment.model';
 import BookingResponse from './booking.model';
 
 export default class HouseResponse {
-    public HouseId: number | undefined;
+    public houseId: number | undefined;
     public Title: string | undefined;
     public Description: string | undefined;
     public MaxPersonCount: number | undefined;

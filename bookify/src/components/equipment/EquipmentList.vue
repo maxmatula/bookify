@@ -25,8 +25,9 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import Service from '@/services/service';
-import EquipmentResponse from '@/models/equipment.model';
+import Service from '../../services/service';
+import EquipmentResponse from '../../models/equipment.model';
+import ErrorFormatter from '../../error';
 
 @Component({
   name: 'Wyposażenie',
@@ -61,7 +62,7 @@ export default class EquipmentList extends Vue {
                 this.data = response;
             })
             .catch((error) => {
-                console.log(error);
+                const alert = new ErrorFormatter(error);
             })
             .finally(() => {
                 this.loading = false;
@@ -76,7 +77,7 @@ export default class EquipmentList extends Vue {
                 this.data = response;
             })
             .catch((error) => {
-                console.log(error);
+                const alert = new ErrorFormatter(error);
             })
             .finally(() => {
                 this.fetch();

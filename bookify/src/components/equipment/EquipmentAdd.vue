@@ -18,8 +18,9 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import Service from '@/services/service';
+import Service from '../../services/service';
 import EquipmentResponse from '../../models/equipment.model';
+import ErrorFormatter from '../../error';
 
 @Component
 export default class EquipmentAdd extends Vue {
@@ -39,7 +40,7 @@ export default class EquipmentAdd extends Vue {
                this.$router.push(this.$route.matched[0].path);
             })
             .catch((error) => {
-                console.log(error);
+                const alert = new ErrorFormatter(error);
             })
             .finally(() => {
                 this.loading = false;
