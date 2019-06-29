@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>{{$options.name}}</h1>
+        <h1>{{name}}</h1>
         <p>
             <b-button variant="success" :to="($route.path).replace('/','') + '/add'">Utwórz nowy</b-button>
           </p>
@@ -9,6 +9,9 @@
             <b-spinner class="align-middle"></b-spinner>
             <strong> Ładowanie...</strong>
           </div>
+          <template slot="houseId" slot-scope="data">
+            {{data.item.house.title}}
+          </template>
           <template slot="show_details" slot-scope="data">
             <b-button-group>
               <b-button title="Edytuj" :to="{ name: ($route.path).replace('/','') + '/edit', params: { id: data.item.equipmentId }}" variant="warning" size="sm">
@@ -29,10 +32,9 @@ import Service from '../../services/service';
 import EquipmentResponse from '../../models/equipment.model';
 import ErrorFormatter from '../../error';
 
-@Component({
-  name: 'Wyposażenie',
-})
+@Component
 export default class EquipmentList extends Vue {
+    public name =  'Ewidencja wyposażenia ośrodka';
     public data = [];
     public loading = true;
 
@@ -43,6 +45,10 @@ export default class EquipmentList extends Vue {
       },
       name: {
         label: 'Nazwa',
+        sortable: false,
+      },
+      houseId: {
+        label: 'Domek',
         sortable: false,
       },
       show_details: {

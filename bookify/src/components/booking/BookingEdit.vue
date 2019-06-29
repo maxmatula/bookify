@@ -11,12 +11,12 @@
                 <div class="row">
                     <div class="col-4">
                         <b-form-group label="*Liczba dorosłych">
-                            <b-form-input required type="number" min="1" max="10" v-model="data.adults"></b-form-input>
+                            <b-form-input required type="number" min="1" max="10" v-model="data.adults" @change="fetchHouses()"></b-form-input>
                         </b-form-group>
                     </div>
                     <div class="col-4">
                         <b-form-group label="*Liczba dzieci">
-                            <b-form-input required type="number" min="0" max="10" v-model="data.kids"></b-form-input>
+                            <b-form-input required type="number" min="0" max="10" v-model="data.kids" @change="fetchHouses()"></b-form-input>
                         </b-form-group>
                     </div>
                     <div class="col-4">
@@ -26,12 +26,12 @@
                     </div>
                     <div class="col-6">
                          <b-form-group label="*Data rozpoczęcia pobytu">
-                            <b-form-input required type="date" v-model="data.dateFrom"></b-form-input>
+                            <b-form-input required type="date" v-model="data.dateFrom" @change="fetchHouses()"></b-form-input>
                         </b-form-group>
                     </div>
                     <div class="col-6">
                         <b-form-group label="*Data zakończenia pobytu">
-                            <b-form-input required type="date" v-model="data.dateTo"></b-form-input>
+                            <b-form-input required type="date" v-model="data.dateTo" @change="fetchHouses()"></b-form-input>
                         </b-form-group>
                     </div>
                 </div>
@@ -225,7 +225,9 @@ export default class BookingEdit extends Vue {
       const year = date.getFullYear();
       let month = (date.getMonth() + 1).toString();
       if (parseInt(month, 10) < 10) { month = '0' + month; }
-      const str = year + '-' + month + '-' + date.getDate();
+      let day = date.getDate().toString();
+      if (parseInt(day, 10) < 10) { day = '0' + day; }
+      const str = year + '-' + month + '-' + day;
       return str;
     }
 
